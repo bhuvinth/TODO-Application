@@ -1,6 +1,8 @@
 import * as env from 'env-var';
+import * as dotenvsafe from 'dotenv-safe';
 import TaskStatusEnum from '@main/common/types/taskStatusEnum';
 
+dotenvsafe.config();
 export default class AppConfig {
   public static databaseConfiguration = {
     hostName: env
@@ -27,7 +29,10 @@ export default class AppConfig {
 
   public static authToken = env.get('AUTH_TOKEN');
 
-  public static serverPort = env.get('PORT').default(5000);
+  public static serverPort = env
+    .get('PORT')
+    .default(5000)
+    .asIntPositive();
 
   public static searchDefaultSettings = {
     defaultTaskStatus: AppConfig.getDefaultStatus(),
