@@ -1,5 +1,6 @@
 import TaskStatusEnum from '@main/common/types/taskStatusEnum';
 import { IsEnum, MinLength, MaxLength } from 'class-validator';
+import { Exclude } from 'class-transformer';
 
 export default class TaskDTO {
   public taskId: number;
@@ -13,4 +14,10 @@ export default class TaskDTO {
 
   @IsEnum(TaskStatusEnum)
   public status: TaskStatusEnum;
+
+  @Exclude()
+  public createdAt: Date;
+
+  @Exclude()
+  public updatedAt: Date;
 }

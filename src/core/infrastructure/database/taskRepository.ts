@@ -1,4 +1,5 @@
-import { Repository, getRepository, Like } from 'typeorm';
+/* eslint-disable prettier/prettier */
+import { Repository, getRepository } from 'typeorm';
 import Logger from '@main/utils/Logger';
 import TaskRepositoryInterface from './TaskRepositoryInterface';
 import TaskEntity from './taskEntity';
@@ -11,7 +12,8 @@ import UnableToDeleteTaskError from '../errors/unableToDeleteTaskError';
 export default class TaskRepository implements TaskRepositoryInterface {
   private repository: Repository<TaskEntity>;
 
-  public constructor() {
+  public constructor(
+  ) {
     this.repository = getRepository(TaskEntity);
   }
 
@@ -54,12 +56,12 @@ export default class TaskRepository implements TaskRepositoryInterface {
     try {
       const [findResults, count] = await this.repository
         .createQueryBuilder()
-        .where({
-          title: Like(`%${taskCriteria.title}%`),
-          description: Like(`%${taskCriteria.description}%`),
+        .where('LOWER(title) LIKE :title AND LOWER(description) LIKE :description AND status = :status', {
+          title: `%${taskCriteria.title.toLowerCase()}%`,
+          description: `%${taskCriteria.description.toLowerCase()}%`,
           status: taskCriteria.status,
         })
-        .orderBy('created_at', 'DESC')
+        .orderBy('updated_date', 'DESC')
         .take(taskCriteria.pageResultSettings.limit)
         .skip(taskCriteria.pageResultSettings.offset)
         .getManyAndCount();
@@ -99,7 +101,7 @@ export default class TaskRepository implements TaskRepositoryInterface {
         .createQueryBuilder()
         .skip(pageResultSettings.offset)
         .take(pageResultSettings.limit)
-        .orderBy('created_at', 'DESC')
+        .orderBy('updated_date', 'DESC')
         .getManyAndCount();
 
       return this.getTaskPageFromResults(findResults, count, pageResultSettings);
@@ -113,9 +115,7 @@ export default class TaskRepository implements TaskRepositoryInterface {
     try {
       const findResult = await this.repository.findOneOrFail(taskId);
 
-      const deleteResult = await this.repository.remove(findResult);
-
-      console.log(deleteResult);
+      await this.repository.remove(findResult);
       return true;
     } catch (error) {
       Logger.error(error);

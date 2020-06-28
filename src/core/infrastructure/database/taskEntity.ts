@@ -26,8 +26,8 @@ export default class TaskEntity {
   public description: string;
 
   @CreateDateColumn()
-  public createdAt: Date;
+  public createdDate: Date;
 
   @UpdateDateColumn()
-  public updatedAt: Date;
+  public updatedDate: Date;
 }

@@ -27,7 +27,10 @@ export default class AppConfig {
       .asString(),
   };
 
-  public static authToken = env.get('AUTH_TOKEN');
+  public static authToken = env
+    .get('AUTH_TOKEN')
+    .required()
+    .asString();
 
   public static serverPort = env
     .get('PORT')

@@ -1,12 +1,22 @@
+import HttpStatusCodes from '../types/httpStatusEnum';
+
 export interface IApplicationError {
   message?: string;
   error?: Error;
   code?: string;
   details?: Object;
+  name?: string;
+  httpStatusCode?: HttpStatusCodes;
 }
 
 export default class ApplicationError extends Error {
+  public static defaultHttpStatusCode = HttpStatusCodes.INTERNAL_ERROR;
+
   public static defaultErrorCode = 'APPLICATION_ERROR';
+
+  public static defaultName = 'APPLICATION_ERROR';
+
+  public httpCode: HttpStatusCodes;
 
   public code: string;
 
@@ -22,6 +32,9 @@ export default class ApplicationError extends Error {
     super(message);
 
     this.code = params.code || (this.constructor as typeof ApplicationError).defaultErrorCode;
+    this.name = params.name || (this.constructor as typeof ApplicationError).defaultName;
+    this.httpCode =
+      params.httpStatusCode || (this.constructor as typeof ApplicationError).defaultHttpStatusCode;
     this.message = message;
     this.details = params.details || {};
   }

@@ -10,6 +10,7 @@ module.exports = {
       'error',
       { selector: 'default', format: ['camelCase'] },
       { selector: 'typeLike', format: ['PascalCase'] },
+      {selector: 'enum', format: ['PascalCase']}
     ],
     'no-console': 'off',
   },

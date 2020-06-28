@@ -23,6 +23,7 @@ describe('Task Repository test suite', () => {
         synchronize: true,
         logging: false,
       });
+
       taskRepository = new TaskRepository();
       return connection;
     }
