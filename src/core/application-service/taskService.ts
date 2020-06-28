@@ -1,15 +1,18 @@
 import TaskDTO from '@core/infrastructure/http/dto/taskDTO';
 import TaskRepositoryInterface from '@core/infrastructure/database/TaskRepositoryInterface';
 import TaskPageQuery from '@core/infrastructure/http/dto/taskPageQuery';
+import { Service, Inject } from 'typedi';
 import TaskMapper from './taskMapper';
 import { TaskSearchCriteria } from '../infrastructure/database/taskCriteria';
 import TaskPageDTO from '../infrastructure/http/dto/taskPageDTO';
-import TaskRepository from '../infrastructure/database/taskRepository';
+import IocConstants from '../infrastructure/ioc/constants';
 
+@Service()
 export default class TaskApplicationService {
   // eslint-disable-next-line no-useless-constructor
   public constructor(
-    private taskRepositoryObj: TaskRepositoryInterface = new TaskRepository(), // eslint-disable-next-line no-empty-function
+    @Inject(IocConstants.TaskRepository)
+    private taskRepositoryObj: TaskRepositoryInterface, // eslint-disable-next-line no-empty-function
   ) {}
 
   public async addTask(taskDtoObj: TaskDTO): Promise<TaskDTO> {
@@ -28,7 +31,6 @@ export default class TaskApplicationService {
     const taskCriteria: TaskSearchCriteria = TaskMapper.fromSearchQueryToTaskSearchCriteria(
       searchQuery,
     );
-    console.log(taskCriteria);
     const searchTaskPage = await this.taskRepositoryObj.searchTask(taskCriteria);
     const taskPageDto: TaskPageDTO = TaskMapper.fromTaskPageToTaskPageDto(searchTaskPage);
     return taskPageDto;

@@ -1,25 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { getAllJSDocTags } from 'typescript';
-import TaskService from './taskService';
+import { Container } from 'typedi';
 import TaskDTO from '../infrastructure/http/dto/taskDTO';
 import TaskStatusEnum from '../../common/types/taskStatusEnum';
-import TaskRepository from '../infrastructure/database/taskRepository';
-import TaskPage from '../infrastructure/database/taskPage';
-import TaskEntity from '../infrastructure/database/taskEntity';
 import MockTaskRepository from './mocks/mockTaskRepository';
 import TaskPageQuery from '../infrastructure/http/dto/taskPageQuery';
-import TaskMapper from './taskMapper';
 import UnableToFetchTaskError from '../infrastructure/errors/unableToFetchTaskError';
 import UnableToDeleteTaskError from '../infrastructure/errors/unableToDeleteTaskError';
+import TaskApplicationService from './taskService';
+import IocConstants from '../infrastructure/ioc/constants';
 
 // const mockRepository = jest.genMockFromModule('../infrastructure/database/taskRepository');
 
 describe('Test Suite to test TaskApplicationService', () => {
-  let taskApplicationService!: TaskService;
-
+  const mockRepository = new MockTaskRepository();
+  Container.set([{ id: IocConstants.TaskRepository, value: mockRepository }]);
+  const taskApplicationService: TaskApplicationService = Container.get(TaskApplicationService);
   beforeEach(() => {
-    const mockRepository = new MockTaskRepository();
-    taskApplicationService = new TaskService(mockRepository);
+    mockRepository.clearAllTasks();
   });
 
   async function addTaskAndValidate(
@@ -44,7 +40,7 @@ describe('Test Suite to test TaskApplicationService', () => {
   }
 
   test('Should add a Task successfully', async () => {
-    const addedTask = await addTaskAndValidate();
+    await addTaskAndValidate();
   });
 
   test('Should update a Task successfully', async () => {

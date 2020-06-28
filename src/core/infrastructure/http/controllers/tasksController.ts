@@ -12,14 +12,17 @@ import {
 } from 'routing-controllers';
 import TaskApplicationService from '@main/core/application-service/taskService';
 
+import { Service, Inject } from 'typedi';
 import TaskDTO from '../dto/taskDTO';
 import TaskPageQuery from '../dto/taskPageQuery';
 import UnableToDeleteTaskError from '../../errors/unableToDeleteTaskError';
 
+@Service()
 @JsonController('/tasks')
 @Authorized()
 export default class TasksController {
-  private taskApplicationService: TaskApplicationService = new TaskApplicationService();
+  @Inject()
+  private taskApplicationService: TaskApplicationService;
 
   @Get('')
   async getAll(@QueryParams() query: TaskPageQuery) {

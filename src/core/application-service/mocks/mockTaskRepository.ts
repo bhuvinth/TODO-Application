@@ -107,4 +107,8 @@ export default class MockTaskRepository implements TaskRepositoryInterface {
     }
     return found;
   }
+
+  public async clearAllTasks() {
+    this.tasks = [];
+  }
 }

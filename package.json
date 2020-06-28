@@ -4,9 +4,16 @@
   "description": "",
   "main": "index.ts",
   "scripts": {
-    "dev": "ts-node -r tsconfig-paths/register ./src/core/infrastructure/http/server.ts",
-    "test": "jest --passWithNoTests",
-    "test:coverage": "jest --passWithNoTests --coverage=true --silent"
+    "test": "jest --passWithNoTests --silent",
+    "test:coverage": "jest --passWithNoTests --coverage=true --silent",
+    "clean": "rimraf ./dist",
+    "prebuild": "npm run clean",
+    "build": "webpack --config ./webpack.config.js --mode development",
+    "predev": "npm run build && docker-compose build --no-cache",
+    "dev": "docker-compose up",
+    "prestart": "npm run build && docker-compose build --no-cache",
+    "start": "docker-compose up -d",
+    "lint": "eslint --max-warnings 0 --ext .js,.jsx,.ts,.tsx ./"
   },
   "repository": {
     "type": "git",
@@ -29,8 +36,10 @@
     "reflect-metadata": "^0.1.13",
     "routing-controllers": "^0.9.0-alpha.4",
     "source-map-support": "^0.5.19",
+    "typedi": "^0.8.0",
     "typeorm": "^0.2.20",
     "typeorm-naming-strategies": "^1.1.0",
+    "typeorm-typedi-extensions": "^0.2.3",
     "winston": "^3.3.3"
   },
   "devDependencies": {
@@ -61,6 +70,10 @@
     "ts-mockito": "^2.3.1",
     "ts-node": "^8.5.2",
     "tsconfig-paths": "^3.9.0",
-    "typescript": "^3.9.5"
+    "typescript": "^3.9.5",
+    "ts-loader": "^5.3.3",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
   }
 }

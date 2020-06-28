@@ -1,6 +1,8 @@
 /* eslint-disable prettier/prettier */
 import { Repository, getRepository } from 'typeorm';
 import Logger from '@main/utils/Logger';
+import { Service } from 'typedi';
+import { InjectRepository } from 'typeorm-typedi-extensions';
 import TaskRepositoryInterface from './TaskRepositoryInterface';
 import TaskEntity from './taskEntity';
 import { TaskSearchCriteria, PageResultSettings } from './taskCriteria';
@@ -8,12 +10,14 @@ import TaskPage from './taskPage';
 import UnableToSaveTaskError from '../errors/unableToSaveTaskError';
 import UnableToFetchTaskError from '../errors/unableToFetchTaskError';
 import UnableToDeleteTaskError from '../errors/unableToDeleteTaskError';
+import IocConstants from '../ioc/constants';
 
+@Service(IocConstants.TaskRepository)
 export default class TaskRepository implements TaskRepositoryInterface {
+  @InjectRepository(TaskEntity)
   private repository: Repository<TaskEntity>;
 
-  public constructor(
-  ) {
+  public constructor() {
     this.repository = getRepository(TaskEntity);
   }
 
@@ -56,11 +60,14 @@ export default class TaskRepository implements TaskRepositoryInterface {
     try {
       const [findResults, count] = await this.repository
         .createQueryBuilder()
-        .where('LOWER(title) LIKE :title AND LOWER(description) LIKE :description AND status = :status', {
-          title: `%${taskCriteria.title.toLowerCase()}%`,
-          description: `%${taskCriteria.description.toLowerCase()}%`,
-          status: taskCriteria.status,
-        })
+        .where(
+          'LOWER(title) LIKE :title AND LOWER(description) LIKE :description AND status = :status',
+          {
+            title: `%${taskCriteria.title.toLowerCase()}%`,
+            description: `%${taskCriteria.description.toLowerCase()}%`,
+            status: taskCriteria.status,
+          },
+        )
         .orderBy('updated_date', 'DESC')
         .take(taskCriteria.pageResultSettings.limit)
         .skip(taskCriteria.pageResultSettings.offset)
