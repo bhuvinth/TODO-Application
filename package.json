@@ -8,7 +8,7 @@
     "test:coverage": "jest --passWithNoTests --coverage=true --silent",
     "clean": "rimraf ./dist",
     "prebuild": "npm run clean",
-    "build": "webpack --config ./webpack.config.js --mode development",
+    "build": "webpack --config ./webpack.config.js --mode production",
     "predev": "npm run build && docker-compose build --no-cache",
     "dev": "docker-compose up",
     "prestart": "npm run build && docker-compose build --no-cache",
