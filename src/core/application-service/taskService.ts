@@ -2,10 +2,10 @@ import TaskDTO from '@core/infrastructure/http/dto/taskDTO';
 import TaskRepositoryInterface from '@core/infrastructure/database/TaskRepositoryInterface';
 import TaskPageQuery from '@core/infrastructure/http/dto/taskPageQuery';
 import { Service, Inject } from 'typedi';
+import { TaskSearchCriteria } from '@core/infrastructure/database/taskCriteria';
+import TaskPageDTO from '@core/infrastructure/http/dto/taskPageDTO';
+import IocConstants from '@main/common/ioc/constants';
 import TaskMapper from './taskMapper';
-import { TaskSearchCriteria } from '../infrastructure/database/taskCriteria';
-import TaskPageDTO from '../infrastructure/http/dto/taskPageDTO';
-import IocConstants from '../infrastructure/ioc/constants';
 
 @Service()
 export default class TaskApplicationService {

@@ -3,6 +3,7 @@ import { Repository, getRepository } from 'typeorm';
 import Logger from '@main/utils/Logger';
 import { Service } from 'typedi';
 import { InjectRepository } from 'typeorm-typedi-extensions';
+import IocConstants from '@main/common/ioc/constants';
 import TaskRepositoryInterface from './TaskRepositoryInterface';
 import TaskEntity from './taskEntity';
 import { TaskSearchCriteria, PageResultSettings } from './taskCriteria';
@@ -10,7 +11,6 @@ import TaskPage from './taskPage';
 import UnableToSaveTaskError from '../errors/unableToSaveTaskError';
 import UnableToFetchTaskError from '../errors/unableToFetchTaskError';
 import UnableToDeleteTaskError from '../errors/unableToDeleteTaskError';
-import IocConstants from '../ioc/constants';
 
 @Service(IocConstants.TaskRepository)
 export default class TaskRepository implements TaskRepositoryInterface {

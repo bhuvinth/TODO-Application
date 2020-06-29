@@ -1,9 +1,9 @@
-import TaskDTO from '../infrastructure/http/dto/taskDTO';
-import TaskEntity from '../infrastructure/database/taskEntity';
-import TaskPageQuery from '../infrastructure/http/dto/taskPageQuery';
-import { TaskSearchCriteria } from '../infrastructure/database/taskCriteria';
-import TaskPage from '../infrastructure/database/taskPage';
-import TaskPageDTO from '../infrastructure/http/dto/taskPageDTO';
+import TaskDTO from '@core/infrastructure/http/dto/taskDTO';
+import TaskEntity from '@core/infrastructure/database/taskEntity';
+import TaskPageQuery from '@core/infrastructure/http/dto/taskPageQuery';
+import { TaskSearchCriteria } from '@core/infrastructure/database/taskCriteria';
+import TaskPage from '@core/infrastructure/database/taskPage';
+import TaskPageDTO from '@core/infrastructure/http/dto/taskPageDTO';
 
 export default class TaskMapper {
   public static fromDtoToEntity(taskDtoObj: TaskDTO, taskId?: number): TaskEntity {

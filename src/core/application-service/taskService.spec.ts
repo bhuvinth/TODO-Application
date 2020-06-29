@@ -6,7 +6,7 @@ import TaskPageQuery from '../infrastructure/http/dto/taskPageQuery';
 import UnableToFetchTaskError from '../infrastructure/errors/unableToFetchTaskError';
 import UnableToDeleteTaskError from '../infrastructure/errors/unableToDeleteTaskError';
 import TaskApplicationService from './taskService';
-import IocConstants from '../infrastructure/ioc/constants';
+import IocConstants from '../../common/ioc/constants';
 
 // const mockRepository = jest.genMockFromModule('../infrastructure/database/taskRepository');
 

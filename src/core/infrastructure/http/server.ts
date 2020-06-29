@@ -4,9 +4,9 @@ import { createExpressServer, useContainer } from 'routing-controllers';
 import databaseConnectionManager from '@main/common/database/databaseConnectionManager';
 import { Container } from 'typedi';
 
+import initContainer from '@main/common/ioc/container';
 import loggerMiddleware from './middlewares/logger';
 import authenticationHelper from './authenticationHelper';
-import initContainer from '../ioc/container';
 import taskController from './controllers/tasksController';
 
 useContainer(Container);
