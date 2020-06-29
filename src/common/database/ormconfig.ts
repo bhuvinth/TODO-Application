@@ -14,7 +14,7 @@ export default (): ConnectionOptions => {
     password: appConfig.databaseConfiguration.password,
     database: appConfig.databaseConfiguration.schemaName,
     synchronize: true,
-    logging: true,
+    logging: false,
     entities: [TaskEntity],
     cli: {
       migrationsDir: './src/database/migrations',
