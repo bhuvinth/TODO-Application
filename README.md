@@ -55,3 +55,7 @@ I have tried to write tests to cover the Logical parts.
 
 #### Choices & Rationals
 Please find the choices and rationales [here](./choices-and-rationales/README.md)
+
+
+
+<p style=max-width:10ch;text-align:right> If you are looking to have an impact on the world, then read carefully because at <b>CHOCO</b>, we are moving mountains to transition the world into sustainable <i>food</i> systems.<br/><br/>The <i>food</i> industry is an industry with essential problems, especially in <i>food</i>-supply-chain. We are now leveraging technology to bring <b>change</b> and start the necessary transformation the industry is craving for.<br/><br/>We are building the digital platform on which the global <i>food</i> trade will operate. Our company has the potential to reduce <i>food</i> prices, decrease <i>food</i> waste by 30% and reshape one of the oldest and largest industries on the planet. </p><br> <br> > When Chuck Norris goes to out to eat, he orders a whole chicken, but he only eats its soul.
